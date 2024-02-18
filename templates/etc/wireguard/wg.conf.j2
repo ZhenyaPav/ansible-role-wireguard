@@ -3,7 +3,6 @@
  # SPDX-License-Identifier: GPL-3.0-or-later
  #}
 # {{ ansible_managed }}
-# test
 [Interface]
 # {{ inventory_hostname }}
 {% if wireguard_address is defined %}
@@ -52,7 +51,7 @@ PostDown = {{ wg_postdown }}
 SaveConfig = {{ wireguard_save_config }}
 {% endif %}
 {% for host in ansible_play_hosts %}
-{%   if host != inventory_hostname %}
+{%   if host != inventory_hostname and hostvars[host].wireguard_endpoint is defined and hostvars[host].wireguard_endpoint != "" %}
 
 [Peer]
 # Name = {{ host }}
